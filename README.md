@@ -11,6 +11,7 @@ A react app built with redux and [The Movie Database API](https://developers.the
 * AWS Cloudfront
 * Slack
 * Sentry
+* Terraform
 
 ## App Usage Locally
 
