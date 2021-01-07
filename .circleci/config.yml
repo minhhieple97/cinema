@@ -139,8 +139,7 @@ jobs:
           channel: "circleci"
           template: ""
           custom: |
-            custom: |
-              {
+            {
              "blocks": [
                {
                  "type": "header",
