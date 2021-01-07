@@ -159,7 +159,7 @@ workflows:
       #           - main
       - deploy-to-aws-s3:
           requires:
-            - prettier
+            # - prettier
             - linting
           filters:
             branches:
