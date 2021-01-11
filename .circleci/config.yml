@@ -8,8 +8,11 @@ executors:
     working_directory: ~/repo
   slack-executor:
     docker:
-      - image: "cimg/base:stable"
+      - image: 'cimg/base:stable'
     resource_class: small
+  terraform-executor:
+    docker:
+      - image: hashicorp/terraform:0.14.3
 aliases:
   - &show-current-branch-name
     run:
@@ -132,8 +135,8 @@ jobs:
     steps:
       - run: echo "Slack notification"
       - slack/notify:
-          event: "always"
-          channel: "circleci"
+          event: 'always'
+          channel: 'circleci'
           template: success_tagged_deploy_1
 workflows:
   build_and_deploy:

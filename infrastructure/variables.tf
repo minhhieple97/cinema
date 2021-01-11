@@ -5,6 +5,3 @@ variable "prefix" {
 variable "project" {
   default = "cinema-react-app"
 }
-locals {
-  prefix = "${var.prefix}-${terraform.workspace}"
-}
