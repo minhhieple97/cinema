@@ -5,7 +5,7 @@ import store from './redux/store';
 const App = () => {
   return (
     <Provider store={store}>
-      <div className="app">Redux</div>
+      <div className="app">Redux update</div>
     </Provider>
   );
 };
