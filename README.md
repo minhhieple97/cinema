@@ -2,27 +2,27 @@ A react app built with redux and [The Movie Database API](https://developers.the
 
 ## Tools
 
-* React
-* Redux
-* Node-sass and CSS Grid
-* Github
-* Docker
-* AWS S3
-* AWS Cloudfront
-* Slack
-* Sentry
+- React
+- Redux
+- Node-sass and CSS Grid
+- Github
+- Docker
+- AWS S3
+- AWS Cloudfront
+- Slack
+- Sentry
+- Terraform
 
 ## App Usage Locally
 
-* Clone the repo
+- Clone the repo
 
-* Run `npm install`
+- Run `npm install`
 
-* Create an account on [https://www.themoviedb.org/](https://www.themoviedb.org/) and obtain an API key.
+- Create an account on [https://www.themoviedb.org/](https://www.themoviedb.org/) and obtain an API key.
 
-* Create a .env file in the root of the project and add
+- Create a .env file in the root of the project and add
+
 ```js
 REACT_APP_API_SECRET=your api key
 ```
-
-

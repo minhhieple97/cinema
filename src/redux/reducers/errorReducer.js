@@ -1,0 +1,19 @@
+import { SET_ERROR } from "../type";
+
+const initialState = {
+    message: '',
+    statusCode: null
+};
+const errorReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case SET_ERROR:
+            return {
+                ...state,
+                message: action.payload.message,
+                statusCode: action.payload.statusCode
+            };
+        default:
+            return state;
+    }
+};
+export default errorReducer
