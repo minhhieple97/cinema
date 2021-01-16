@@ -6,7 +6,7 @@ const SlideShow = ({ images, auto, showArrows }) => {
     slideShow: images[0],
     slideIndex: 0
   });
-  const { slideShow, slideIndex } = state;
+  const { slideShow } = state;
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
