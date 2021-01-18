@@ -11,7 +11,7 @@ const Header = () => {
             document.body.classList.add('header-nav-open');
         }
         else {
-            document.body.classList.remove('header-nav-open')
+            document.body.classList.remove('header-nav-open');
         }
     }
     return (
