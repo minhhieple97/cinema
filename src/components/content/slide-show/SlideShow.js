@@ -13,7 +13,6 @@ const SlideShow = ({ images, auto, showArrows }) => {
     if (auto) {
       let currentSlideIndex = 0;
       const autoMoveSlide = () => {
-        console.log({ currentSlideIndex });
         let lastIndex = currentSlideIndex + 1;
         currentSlideIndex = lastIndex >= images.length ? 0 : lastIndex;
         setState((prevState) => ({
