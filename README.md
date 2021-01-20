@@ -26,3 +26,6 @@ A react app built with redux and [The Movie Database API](https://developers.the
 ```js
 REACT_APP_API_SECRET=your api key
 ```
+
+AKIASZLCAXZQU4XDOOSS
+504FumuBGVPUc85Llvfg2cWkVpVe0Ccm8nqZfA0q
