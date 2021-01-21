@@ -1,4 +1,4 @@
-import { MOVIE_LIST, RESPONSE_PAGE, LOAD_MORE_RESULTS, MOVIE_TYPE, SEARCH_QUERY, SEARCH_RESULT, MOVIE_DETAILS, CLEAR_MOVIE_DETAILS } from '../type';
+import { MOVIE_LIST, RESPONSE_PAGE, LOAD_MORE_RESULTS, MOVIE_TYPE, SEARCH_QUERY, SEARCH_RESULT, MOVIE_DETAILS, CLEAR_MOVIE_DETAILS, CHANGE_LOADING } from '../type';
 
 const initialState = {
     list: [],
@@ -7,7 +7,8 @@ const initialState = {
     movieType: 'now_playing',
     searchQuery: '',
     searchResult: [],
-    movie: []
+    movie: [],
+    loading: false
 };
 
 const movieReducer = (state = initialState, action) => {
@@ -54,6 +55,11 @@ const movieReducer = (state = initialState, action) => {
             return {
                 ...state,
                 movie: []
+            };
+        case CHANGE_LOADING:
+            return {
+                ...state,
+                loading: action.payload
             };
         default:
             return state;

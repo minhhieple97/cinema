@@ -8,8 +8,12 @@ const SlideShow = ({ images, auto, showArrows }) => {
   });
   const { slideShow } = state;
   const [currentIndex, setCurrentIndex] = useState(0);
-
   useEffect(() => {
+    setState((prevState) => ({
+      ...prevState,
+      slideShow: images[0],
+      slideIndex: 0
+    }));
     if (auto) {
       let currentSlideIndex = 0;
       const autoMoveSlide = () => {

@@ -1,28 +1,46 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { IMAGE_URL } from '../../../services/movie';
 import Grid from '../grid/Grid';
 import Paginate from '../paginate/Paginate';
 import SlideShow from '../slide-show/SlideShow';
 import './MainContent.scss';
 const MainContent = () => {
-  const images = [
-    {
-      url:
-        'https://images.pexels.com/photos/4173624/pexels-photo-4173624.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-      rating: 8.5
-    },
-    {
-      url:
-        'https://seido.vn/wp-content/uploads/2020/12/Colorful-Geometric-Simple-Background-Image.jpg',
-      rating: 7.5
-    },
-    {
-      url:
-        'https://img.freepik.com/free-photo/hand-painted-watercolor-background-with-sky-clouds-shape_24972-1095.jpg?size=626&ext=jpg',
-      rating: 6.5
+  const { list, page, totalPages } = useSelector(state => state.movies)
+  const [images, setImages] = useState([])
+  useEffect(() => {
+    const randomMovies = list.sort(() => Math.random() - Math.random()).slice(0, 4);
+    if (randomMovies.length) {
+      const IMAGES = [
+        {
+          id: 1,
+          url:
+            `${IMAGE_URL}/${randomMovies[0].backdrop_path}`,
+          rating: 8.5
+        },
+        {
+          id: 2,
+          url:
+            `${IMAGE_URL}/${randomMovies[1].backdrop_path}`,
+          rating: 7.5
+        },
+        {
+          id: 3,
+          url:
+            `${IMAGE_URL}/${randomMovies[2].backdrop_path}`,
+          rating: 6.5
+        },
+        {
+          id: 4,
+          url:
+            `${IMAGE_URL}/${randomMovies[3].backdrop_path}`,
+          rating: 6.5
+        }
+      ];
+      setImages(IMAGES)
     }
-  ];
+  }, [list])
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages] = useState(10);
   const paginate = (type) => {
     switch (type) {
       case 'prev':
@@ -54,7 +72,7 @@ const MainContent = () => {
         </div>
       </div>
       {/* display grid component */}
-      <Grid images={images}></Grid>
+      <Grid images={list}></Grid>
       Main Content
     </div>
   );

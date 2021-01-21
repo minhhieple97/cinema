@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import logo from '../../assets/cinema-logo.svg';
-import { getDataMovie } from '../../services/movie.service';
+import { getMovies } from '../../redux/actions/movies';
 import './Header.scss';
 const HEADER_LIST = [
   {
@@ -40,9 +41,12 @@ const Header = () => {
       document.body.classList.remove('header-nav-open');
     }
   };
+  const dispatch = useDispatch()
   useEffect(() => {
-    getDataMovie('now_playing', 1)
-  }, [])
+    dispatch(getMovies())
+  }, [dispatch]);
+  const { list, page, totalPages } = useSelector((state) => ({ ...state.movies }));
+
   return (
     <>
       <div className="header-nav-wrapper">
