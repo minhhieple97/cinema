@@ -1,4 +1,5 @@
 import { IMAGE_URL } from '../../../services/movie';
+import LazyImage from '../../lazy-image/LazyImage';
 import Rating from '../rating/Rating';
 import './Grid.scss';
 const Grid = ({ images }) => {
@@ -8,9 +9,11 @@ const Grid = ({ images }) => {
         {images.map((image, i) => {
           return (
             <div key={image.id}>
-              <div
+              
+              <LazyImage
                 className="grid-cell"
-                style={{ backgroundImage: `url(${IMAGE_URL}/${image.poster_path})` }}
+                src={`url(${IMAGE_URL}/${image.poster_path})`}
+                alt="placeholder"
               >
                 <div className="grid-read-more">
                   <button className="grid-cell-button">Read More</button>
@@ -18,12 +21,17 @@ const Grid = ({ images }) => {
                 <div className="grid-detail">
                   <span className="grid-detail-title">{image.title}</span>
                   <div className="grid-detail-rating">
-                    <Rating rating={image.vote_average} totalStars={10}></Rating>
+                    <Rating
+                      rating={image.vote_average}
+                      totalStars={10}
+                    ></Rating>
                     &nbsp;&nbsp;
-                    <div className="grid-vote-average">{image.vote_average}</div>
+                    <div className="grid-vote-average">
+                      {image.vote_average}
+                    </div>
                   </div>
                 </div>
-              </div>
+              </LazyImage>
             </div>
           );
         })}
