@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from '../../assets/cinema-logo.svg';
+import { getDataMovie } from '../../services/movie.service';
 import './Header.scss';
 const HEADER_LIST = [
   {
@@ -39,6 +40,9 @@ const Header = () => {
       document.body.classList.remove('header-nav-open');
     }
   };
+  useEffect(() => {
+    getDataMovie('now_playing', 1)
+  }, [])
   return (
     <>
       <div className="header-nav-wrapper">
@@ -48,9 +52,8 @@ const Header = () => {
             <img src={logo} alt="" />
           </div>
           <div
-            className={`${
-              menuClass ? 'header-menu-toggle is-active' : 'header-menu-toggle'
-            }`}
+            className={`${menuClass ? 'header-menu-toggle is-active' : 'header-menu-toggle'
+              }`}
             id="header-mobile-menu"
             onClick={() => toggleMenu()}
           >
@@ -59,9 +62,8 @@ const Header = () => {
             <span className="bar"></span>
           </div>
           <ul
-            className={`${
-              navClass ? 'header-nav header-mobile-nav' : 'header-nav'
-            }`}
+            className={`${navClass ? 'header-nav header-mobile-nav' : 'header-nav'
+              }`}
           >
             {HEADER_LIST.map((el) => {
               return (

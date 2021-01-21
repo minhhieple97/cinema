@@ -262,19 +262,19 @@ workflows:
       #           - develop
       #           - staging
       #           - main
-      - prettier:
-          requires:
-            - build
-          filters:
-            branches:
-              only:
-                - develop
-                - staging
-                - main
+      # - prettier:
+      #     requires:
+      #       - build
+      #     filters:
+      #       branches:
+      #         only:
+      #           - develop
+      #           - staging
+      #           - main
       - terraform-validate:
-          requires:
-            # - linting
-            - prettier
+          # requires:
+          # - linting
+          # - prettier
           filters:
             branches:
               only:

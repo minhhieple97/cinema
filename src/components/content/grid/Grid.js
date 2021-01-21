@@ -17,9 +17,9 @@ const Grid = ({ images }) => {
                 <div className="grid-detail">
                   <span className="grid-detail-title">Mission Imposible</span>
                   <div className="grid-detail-rating">
-                    <Rating rating={image.rating} totalStars={10}></Rating>
+                    <Rating rating={image.rating} totalStars={1}></Rating>
                     &nbsp;&nbsp;
-                    <div className="grid-vote-average">{4.5}</div>
+                    <div className="grid-vote-average">{image.rating}</div>
                   </div>
                 </div>
               </div>
