@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import logo from '../../assets/cinema-logo.svg';
 import { getMovies } from '../../redux/actions/movies';
 import './Header.scss';
@@ -41,11 +41,11 @@ const Header = () => {
       document.body.classList.remove('header-nav-open');
     }
   };
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getMovies())
+    dispatch(getMovies());
   }, [dispatch]);
-  const { list, page, totalPages } = useSelector((state) => ({ ...state.movies }));
+  // const { list, page, totalPages } = useSelector((state) => ({ ...state.movies }));
 
   return (
     <>
@@ -56,8 +56,9 @@ const Header = () => {
             <img src={logo} alt="" />
           </div>
           <div
-            className={`${menuClass ? 'header-menu-toggle is-active' : 'header-menu-toggle'
-              }`}
+            className={`${
+              menuClass ? 'header-menu-toggle is-active' : 'header-menu-toggle'
+            }`}
             id="header-mobile-menu"
             onClick={() => toggleMenu()}
           >
@@ -66,8 +67,9 @@ const Header = () => {
             <span className="bar"></span>
           </div>
           <ul
-            className={`${navClass ? 'header-nav header-mobile-nav' : 'header-nav'
-              }`}
+            className={`${
+              navClass ? 'header-nav header-mobile-nav' : 'header-nav'
+            }`}
           >
             {HEADER_LIST.map((el) => {
               return (

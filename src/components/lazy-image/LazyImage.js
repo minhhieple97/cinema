@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import placeholder from '../../assets/lazy_loader.gif';
+// import { useState } from 'react';
+// import placeholder from '../../assets/lazy_loader.gif';
 const LazyImage = ({ src, alt, children, className }) => {
-  const [imageSrc, setImageSrc] = useState(src);
-  const [imageRef, setImageRef] = useState();
+  // const [imageSrc, setImageSrc] = useState(src);
+  // const [imageRef, setImageRef] = useState();
   // useEffect(() => {
   //   let observer;
   //   let didCancel = false;
@@ -40,8 +40,8 @@ const LazyImage = ({ src, alt, children, className }) => {
   return (
     <div
       className={className}
-      ref={setImageRef}
-      style={{ backgroundImage: imageSrc }}
+      // ref={setImageRef}
+      style={{ backgroundImage: src }}
       alt={alt}
     >
       {children}

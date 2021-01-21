@@ -6,40 +6,38 @@ import Paginate from '../paginate/Paginate';
 import SlideShow from '../slide-show/SlideShow';
 import './MainContent.scss';
 const MainContent = () => {
-  const { list, page, totalPages } = useSelector(state => state.movies)
-  const [images, setImages] = useState([])
+  const { list, totalPages } = useSelector((state) => state.movies);
+  const [images, setImages] = useState([]);
   useEffect(() => {
-    const randomMovies = list.sort(() => Math.random() - Math.random()).slice(0, 4);
+    const randomMovies = list
+      .sort(() => Math.random() - Math.random())
+      .slice(0, 4);
     if (randomMovies.length) {
       const IMAGES = [
         {
           id: 1,
-          url:
-            `${IMAGE_URL}/${randomMovies[0].backdrop_path}`,
+          url: `${IMAGE_URL}/${randomMovies[0].backdrop_path}`,
           rating: 8.5
         },
         {
           id: 2,
-          url:
-            `${IMAGE_URL}/${randomMovies[1].backdrop_path}`,
+          url: `${IMAGE_URL}/${randomMovies[1].backdrop_path}`,
           rating: 7.5
         },
         {
           id: 3,
-          url:
-            `${IMAGE_URL}/${randomMovies[2].backdrop_path}`,
+          url: `${IMAGE_URL}/${randomMovies[2].backdrop_path}`,
           rating: 6.5
         },
         {
           id: 4,
-          url:
-            `${IMAGE_URL}/${randomMovies[3].backdrop_path}`,
+          url: `${IMAGE_URL}/${randomMovies[3].backdrop_path}`,
           rating: 6.5
         }
       ];
-      setImages(IMAGES)
+      setImages(IMAGES);
     }
-  }, [list])
+  }, [list]);
   const [currentPage, setCurrentPage] = useState(1);
   const paginate = (type) => {
     switch (type) {

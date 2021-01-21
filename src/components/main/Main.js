@@ -8,9 +8,7 @@ import {
 import MainContent from '../content/main-content/MainContent';
 import Spinner from '../spinner/Spinner';
 const Main = () => {
-  const { loading, page, totalPages, list } = useSelector(
-    (state) => state.movies
-  );
+  const { loading, page, totalPages } = useSelector((state) => state.movies);
   const [currentPage, setCurrentPage] = useState(page);
   const mainRef = useRef();
   const bottomLineRef = useRef();
