@@ -16,7 +16,7 @@ const Paginate = ({ paginate, currentPage, totalPages }) => {
       </button>
       <button
         className={
-          currentPage < 10 ? 'paginate-button' : 'paginate-button disable'
+          currentPage < totalPages ? 'paginate-button' : 'paginate-button disable'
         }
         onClick={() => paginate('next')}
       >
