@@ -9,10 +9,10 @@ const Grid = ({ images }) => {
         {images.map((image, i) => {
           return (
             <div key={image.id}>
-              
+
               <LazyImage
                 className="grid-cell"
-                src={`url(${IMAGE_URL}/${image.poster_path})`}
+                src={`${IMAGE_URL}${image.poster_path}`}
                 alt="placeholder"
               >
                 <div className="grid-read-more">

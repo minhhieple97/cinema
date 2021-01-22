@@ -34,6 +34,8 @@ const movieReducer = (state = initialState, action) => {
         case MOVIE_TYPE:
             return {
                 ...state,
+                page: 1,
+                totalPages: 0,
                 movieType: action.payload
             };
         case SEARCH_RESULT:

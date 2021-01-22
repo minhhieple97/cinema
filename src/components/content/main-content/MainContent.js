@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getMovies, setResponsePageNumber } from '../../../redux/actions/movies';
 import { IMAGE_URL } from '../../../services/movie';
+import { MOVIE_TYPE_HASH } from '../../../util/constants';
 import Grid from '../grid/Grid';
 import Paginate from '../paginate/Paginate';
 import SlideShow from '../slide-show/SlideShow';
 import './MainContent.scss';
 const MainContent = () => {
-  const { list, totalPages } = useSelector((state) => state.movies);
+  const { list, totalPages, movieType, page } = useSelector((state) => state.movies);
   const [images, setImages] = useState([]);
+  const dispatch = useDispatch()
   useEffect(() => {
     const randomMovies = list
       .sort(() => Math.random() - Math.random())
@@ -38,33 +41,34 @@ const MainContent = () => {
       setImages(IMAGES);
     }
   }, [list]);
-  const [currentPage, setCurrentPage] = useState(1);
   const paginate = (type) => {
+    let oldPage = page;
     switch (type) {
       case 'prev':
-        if (currentPage >= 1) {
-          setCurrentPage((prevState) => (prevState -= 1));
+        if (page >= 1) {
+          dispatch(setResponsePageNumber(oldPage - 1, totalPages))
         }
         break;
       case 'next':
-        if (currentPage <= totalPages) {
-          setCurrentPage((prevState) => (prevState += 1));
+        if (page <= totalPages) {
+          dispatch(setResponsePageNumber(oldPage + 1, totalPages))
         }
         break;
       default:
         break;
     }
+    dispatch(getMovies(movieType, oldPage + 1))
   };
   return (
     <div className="main-content">
       {/* display slideshow component */}
       <SlideShow images={images} auto={true} showArrows={true}></SlideShow>
       <div className="grid-movie-title">
-        <div className="movieType">Now playing</div>
+        <div className="movieType">{MOVIE_TYPE_HASH[movieType]}</div>
         <div className="paginate">
           <Paginate
             paginate={paginate}
-            currentPage={currentPage}
+            currentPage={page}
             totalPages={totalPages}
           ></Paginate>
         </div>

@@ -1,37 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import logo from '../../assets/cinema-logo.svg';
-import { getMovies } from '../../redux/actions/movies';
+import { getMovies, setMovieType } from '../../redux/actions/movies';
+import { HEADER_LIST } from '../../util/constants';
 import './Header.scss';
-const HEADER_LIST = [
-  {
-    id: 1,
-    iconClass: 'fas fa-film',
-    name: 'Now Playing',
-    type: 'now_playing'
-  },
-  {
-    id: 2,
-    iconClass: 'fas fa-fire',
-    name: 'Popular',
-    type: 'popular'
-  },
-  {
-    id: 3,
-    iconClass: 'fas fa-star',
-    name: 'Top Rated',
-    type: 'top_rated'
-  },
-  {
-    id: 4,
-    iconClass: 'fas fa-plus-square',
-    name: 'Upcoming',
-    type: 'upcoming'
-  }
-];
 const Header = () => {
   const [navClass, setNavClass] = useState(false);
   const [menuClass, setMenuClass] = useState(false);
+  const { movieType } = useSelector((state) => ({ ...state.movies }));
   const toggleMenu = () => {
     setNavClass(!navClass);
     setMenuClass(!menuClass);
@@ -43,9 +19,10 @@ const Header = () => {
   };
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getMovies());
-  }, [dispatch]);
-  // const { list, page, totalPages } = useSelector((state) => ({ ...state.movies }));
+    dispatch(getMovies(movieType));
+    // eslint-disable-next-line
+  }, [movieType]);
+
 
   return (
     <>
@@ -56,9 +33,8 @@ const Header = () => {
             <img src={logo} alt="" />
           </div>
           <div
-            className={`${
-              menuClass ? 'header-menu-toggle is-active' : 'header-menu-toggle'
-            }`}
+            className={`${menuClass ? 'header-menu-toggle is-active' : 'header-menu-toggle'
+              }`}
             id="header-mobile-menu"
             onClick={() => toggleMenu()}
           >
@@ -67,13 +43,14 @@ const Header = () => {
             <span className="bar"></span>
           </div>
           <ul
-            className={`${
-              navClass ? 'header-nav header-mobile-nav' : 'header-nav'
-            }`}
+            className={`${navClass ? 'header-nav header-mobile-nav' : 'header-nav'
+              }`}
           >
             {HEADER_LIST.map((el) => {
               return (
-                <li key={el.id} className="header-nav-item">
+                <li key={el.id} className={el.type === movieType ? "header-nav-item active-item" : "header-nav-item"} onClick={() => {
+                  dispatch(setMovieType(el.type))
+                }} >
                   <span className="header-list-name">
                     <i className={el.iconClass}></i>
                   </span>
