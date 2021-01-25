@@ -3,6 +3,7 @@ import { IMAGE_URL } from '../../../services/movie';
 import { formatMovieTitle } from '../../../util';
 import LazyImage from '../../lazy-image/LazyImage';
 import Rating from '../rating/Rating';
+import { v4 as uuidv4 } from "uuid";
 import './Grid.scss';
 const Grid = ({ images }) => {
   return (
@@ -10,7 +11,7 @@ const Grid = ({ images }) => {
       <div className="grid">
         {images.map((image, i) => {
           return (
-            <div key={`${image.id + i}`}>
+            <div key={uuidv4()}>
               <LazyImage
                 className="grid-cell"
                 src={`${IMAGE_URL}${image.poster_path}`}

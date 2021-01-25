@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import '../grid/Grid.scss'
 import './SearchResult.scss';
 import { Fragment } from 'react';
+import { v4 as uuidv4 } from "uuid";
 import { formatMovieTitle } from '../../../util';
 const SearchResult = () => {
     const { searchResult, searchQuery } = useSelector(state => state.movies);
@@ -17,9 +18,9 @@ const SearchResult = () => {
 
             </div>
             <div className="grid">
-                {searchResult.map((image, i) => {
+                {searchResult.length > 0 ? searchResult.map((image, i) => {
                     return (
-                        <Fragment key={image.imdb_id}>
+                        <Fragment key={uuidv4()}>
                             {image.poster_path && <LazyImage
                                 className="grid-cell"
                                 src={`${IMAGE_URL}${image.poster_path}`}
@@ -45,7 +46,8 @@ const SearchResult = () => {
 
                         </Fragment>
                     );
-                })}
+                }) : <h2>No result is found
+                </h2>}
             </div>
         </div>
     );

@@ -22,10 +22,13 @@ const Header = () => {
     }
   };
   const handleSearchChange = (e) => {
-    dispatch(setLoading(true))
-    setTimeout(() => {
-      dispatch(searchMovieQuery(e.target.value))
-    }, 2000);
+    const query = e.target.value;
+    if (query && query.length < 128) {
+      dispatch(setLoading(true))
+      setTimeout(() => {
+        dispatch(searchMovieQuery(e.target.value))
+      }, 2000);
+    }
   }
 
   useEffect(() => {

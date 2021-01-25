@@ -1,4 +1,5 @@
 
+const slugify = require('slugify')
 export const numberFormatter = (number, digits) => {
     const symbolArray = [
         { value: 1, symbol: '' },
@@ -19,5 +20,5 @@ export const numberFormatter = (number, digits) => {
 
 export const formatMovieTitle = (title) => {
     const titleStr = title.toLowerCase();
-    return titleStr.replace(/ /g, '-')
+    return slugify(titleStr)
 }
