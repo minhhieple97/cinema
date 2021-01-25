@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMovies, setResponsePageNumber } from '../../../redux/actions/movies';
+import {
+  getMovies,
+  setResponsePageNumber
+} from '../../../redux/actions/movies';
 import { IMAGE_URL } from '../../../services/movie';
 import { MOVIE_TYPE_HASH } from '../../../util/constants';
 import Grid from '../grid/Grid';
@@ -8,9 +11,11 @@ import Paginate from '../paginate/Paginate';
 import SlideShow from '../slide-show/SlideShow';
 import './MainContent.scss';
 const MainContent = () => {
-  const { list, totalPages, movieType, page } = useSelector((state) => state.movies);
+  const { list, totalPages, movieType, page } = useSelector(
+    (state) => state.movies
+  );
   const [images, setImages] = useState([]);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   useEffect(() => {
     const randomMovies = list
       .sort(() => Math.random() - Math.random())
@@ -46,18 +51,18 @@ const MainContent = () => {
     switch (type) {
       case 'prev':
         if (page >= 1) {
-          dispatch(setResponsePageNumber(oldPage - 1, totalPages))
+          dispatch(setResponsePageNumber(oldPage - 1, totalPages));
         }
         break;
       case 'next':
         if (page <= totalPages) {
-          dispatch(setResponsePageNumber(oldPage + 1, totalPages))
+          dispatch(setResponsePageNumber(oldPage + 1, totalPages));
         }
         break;
       default:
         break;
     }
-    dispatch(getMovies(movieType, oldPage + 1))
+    dispatch(getMovies(movieType, oldPage + 1));
   };
   return (
     <div className="main-content">
@@ -75,7 +80,6 @@ const MainContent = () => {
       </div>
       {/* display grid component */}
       <Grid images={list}></Grid>
-      Main Content
     </div>
   );
 };

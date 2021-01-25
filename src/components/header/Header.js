@@ -2,7 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import logo from '../../assets/cinema-logo.svg';
-import { getMovies, searchMovieQuery, setLoading, setMovieType } from '../../redux/actions';
+import {
+  clearMovieDetails,
+  getMovies,
+  searchMovieQuery,
+  setLoading,
+  setMovieType
+} from '../../redux/actions';
 import { HEADER_LIST } from '../../util/constants';
 import './Header.scss';
 const Header = () => {
@@ -11,7 +17,10 @@ const Header = () => {
   const { movieType } = useSelector((state) => ({ ...state.movies }));
   const dispatch = useDispatch();
   const history = useHistory();
-  const redirectToHomePage = () => history.push('/')
+  const redirectToHomePage = () => {
+    dispatch(clearMovieDetails());
+    history.push('/');
+  };
   const toggleMenu = () => {
     setNavClass(!navClass);
     setMenuClass(!menuClass);
@@ -24,30 +33,34 @@ const Header = () => {
   const handleSearchChange = (e) => {
     const query = e.target.value;
     if (query && query.length < 128) {
-      dispatch(setLoading(true))
+      dispatch(setLoading(true));
       setTimeout(() => {
-        dispatch(searchMovieQuery(e.target.value))
+        dispatch(searchMovieQuery(e.target.value));
       }, 2000);
     }
-  }
+  };
 
   useEffect(() => {
     dispatch(getMovies(movieType));
     // eslint-disable-next-line
   }, [movieType]);
 
-
   return (
     <>
       <div className="header-nav-wrapper">
         <div className="header-bar"></div>
         <div className="header-navbar">
-          <div className="header-image" style={{ cursor: "pointer" }} onClick={redirectToHomePage} >
+          <div
+            className="header-image"
+            style={{ cursor: 'pointer' }}
+            onClick={redirectToHomePage}
+          >
             <img src={logo} alt="" />
           </div>
           <div
-            className={`${menuClass ? 'header-menu-toggle is-active' : 'header-menu-toggle'
-              }`}
+            className={`${
+              menuClass ? 'header-menu-toggle is-active' : 'header-menu-toggle'
+            }`}
             id="header-mobile-menu"
             onClick={() => toggleMenu()}
           >
@@ -56,14 +69,23 @@ const Header = () => {
             <span className="bar"></span>
           </div>
           <ul
-            className={`${navClass ? 'header-nav header-mobile-nav' : 'header-nav'
-              }`}
+            className={`${
+              navClass ? 'header-nav header-mobile-nav' : 'header-nav'
+            }`}
           >
             {HEADER_LIST.map((el) => {
               return (
-                <li key={el.id} className={el.type === movieType ? "header-nav-item active-item" : "header-nav-item"} onClick={() => {
-                  dispatch(setMovieType(el.type))
-                }} >
+                <li
+                  key={el.id}
+                  className={
+                    el.type === movieType
+                      ? 'header-nav-item active-item'
+                      : 'header-nav-item'
+                  }
+                  onClick={() => {
+                    dispatch(setMovieType(el.type));
+                  }}
+                >
                   <span className="header-list-name">
                     <i className={el.iconClass}></i>
                   </span>
@@ -78,7 +100,7 @@ const Header = () => {
               type="text"
               placeholder="Search for a movie"
               onChange={handleSearchChange}
-            // value={searchQuery}
+              // value={searchQuery}
             />
           </ul>
         </div>
