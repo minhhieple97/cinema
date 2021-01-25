@@ -2,9 +2,11 @@ import { useSelector } from 'react-redux';
 import { IMAGE_URL } from '../../../services/movie';
 import LazyImage from '../../lazy-image/LazyImage';
 import Rating from '../rating/Rating';
+import { Link } from 'react-router-dom';
 import '../grid/Grid.scss'
 import './SearchResult.scss';
 import { Fragment } from 'react';
+import { formatMovieTitle } from '../../../util';
 const SearchResult = () => {
     const { searchResult, searchQuery } = useSelector(state => state.movies);
     return (
@@ -17,14 +19,14 @@ const SearchResult = () => {
             <div className="grid">
                 {searchResult.map((image, i) => {
                     return (
-                        <Fragment key={image.id}>
+                        <Fragment key={image.imdb_id}>
                             {image.poster_path && <LazyImage
                                 className="grid-cell"
                                 src={`${IMAGE_URL}${image.poster_path}`}
                                 alt="placeholder"
                             >
                                 <div className="grid-read-more">
-                                    <button className="grid-cell-button">Read More</button>
+                                    <button className="grid-cell-button"> <Link to={`/${image.id}/${formatMovieTitle(image.title)}/details`} >Read more</Link></button>
                                 </div>
                                 <div className="grid-detail">
                                     <span className="grid-detail-title">{image.title}</span>

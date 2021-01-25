@@ -1,3 +1,5 @@
+import { numberFormatter } from ".";
+
 export const HEADER_LIST = [
     {
         id: 1,
@@ -30,6 +32,40 @@ export const MOVIE_TYPE_HASH = {
     popular: 'Popular',
     top_rated: 'Top Rated',
     upcoming: 'Upcoming'
-}
+};
 
 
+
+
+export const DETAILITEMS = [
+    {
+        id: 0,
+        name: 'Tagline',
+        value: 'Part of the journey is the end'
+    },
+    {
+        id: 1,
+        name: 'Budget',
+        value: `${numberFormatter(356000000, 1)}`
+    },
+    {
+        id: 2,
+        name: 'Revenue',
+        value: `${numberFormatter(2800000000, 1)}`
+    },
+    {
+        id: 3,
+        name: 'Status',
+        value: 'Released'
+    },
+    {
+        id: 4,
+        name: 'Release Date',
+        value: '2019-04-24'
+    },
+    {
+        id: 5,
+        name: 'Run Time',
+        value: '181 min'
+    }
+];

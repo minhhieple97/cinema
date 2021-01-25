@@ -18,12 +18,14 @@ const Main = () => {
     }
   }, [page, totalPages, movieType, dispatch]);
   const handleScroll = () => {
-    const containerHeight = mainRef.current.getBoundingClientRect().height;
-    const {
-      top: bottomLineTop
-    } = bottomLineRef.current.getBoundingClientRect();
-    if (bottomLineTop <= containerHeight) {
-      fetchData();
+    if (mainRef.current && bottomLineRef.current) {
+      const containerHeight = mainRef.current.getBoundingClientRect().height;
+      const {
+        top: bottomLineTop
+      } = bottomLineRef.current.getBoundingClientRect();
+      if (bottomLineTop <= containerHeight) {
+        fetchData();
+      }
     }
   };
   return (

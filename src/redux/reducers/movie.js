@@ -7,7 +7,6 @@ const initialState = {
     movieType: 'now_playing',
     searchQuery: '',
     searchResult: [],
-    movie: [],
     loading: false
 };
 
@@ -34,6 +33,7 @@ const movieReducer = (state = initialState, action) => {
         case MOVIE_TYPE:
             return {
                 ...state,
+                list: [],
                 page: 1,
                 totalPages: 0,
                 movieType: action.payload

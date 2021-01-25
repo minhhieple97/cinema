@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import logo from '../../assets/cinema-logo.svg';
 import { getMovies, searchMovieQuery, setLoading, setMovieType } from '../../redux/actions';
 import { HEADER_LIST } from '../../util/constants';
@@ -9,6 +10,8 @@ const Header = () => {
   const [menuClass, setMenuClass] = useState(false);
   const { movieType } = useSelector((state) => ({ ...state.movies }));
   const dispatch = useDispatch();
+  const history = useHistory();
+  const redirectToHomePage = () => history.push('/')
   const toggleMenu = () => {
     setNavClass(!navClass);
     setMenuClass(!menuClass);
@@ -36,7 +39,7 @@ const Header = () => {
       <div className="header-nav-wrapper">
         <div className="header-bar"></div>
         <div className="header-navbar">
-          <div className="header-image">
+          <div className="header-image" style={{ cursor: "pointer" }} onClick={redirectToHomePage} >
             <img src={logo} alt="" />
           </div>
           <div
