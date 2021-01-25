@@ -10,9 +10,8 @@ export const getMovies = (type = 'now_playing', pageNumber = 1) => async (dispat
         dispatchMethod(RESPONSE_PAGE, payload, dispatch);
         dispatchMethod(CHANGE_LOADING, false, dispatch)
     } catch (error) {
-        if (error.response) {
-            dispatchMethod(SET_ERROR, error.response.data.message, dispatch);
-        }
+        const message = error.response ? error.response.data.message : error.message
+        dispatchMethod(SET_ERROR, message, dispatch);
     }
 };
 
@@ -22,9 +21,8 @@ export const loadMoreMovies = (type, pageNumber) => async (dispatch) => {
         const { results, payload } = response;
         dispatchMethod(LOAD_MORE_RESULTS, { list: results, page: payload.page, totalPages: payload.totalPages }, dispatch);
     } catch (error) {
-        if (error.response) {
-            dispatchMethod(SET_ERROR, error.response.data.message, dispatch);
-        }
+        const message = error.response ? error.response.data.message : error.message
+        dispatchMethod(SET_ERROR, message, dispatch);
     }
 };
 
@@ -43,18 +41,16 @@ export const searchMovieQuery = (query) => async (dispatch) => {
         if (query) {
             const movies = await searchDataMovie(query);
             const { results } = movies;
-            dispatchMethod(CHANGE_LOADING, false, dispatch)
             dispatchMethod(SEARCH_QUERY, { results, query }, dispatch);
         }
         else {
             dispatchMethod(SEARCH_QUERY, [], dispatch);
         }
+        dispatchMethod(CHANGE_LOADING, false, dispatch)
     } catch (error) {
         dispatchMethod(CHANGE_LOADING, false, dispatch)
-        console.log({ error })
-        if (error.response) {
-            dispatchMethod(SET_ERROR, error.response.data.message, dispatch);
-        }
+        const message = error.response ? error.response.data.message : error.message
+        dispatchMethod(SET_ERROR, message, dispatch);
     }
 
 };

@@ -46,7 +46,7 @@ const SearchResult = () => {
 
                         </Fragment>
                     );
-                }) : <h2>No result is found
+                }) : <h2 style={{ textAlign: 'center', color: 'aqua' }} >No result is found ((:
                 </h2>}
             </div>
         </div>
