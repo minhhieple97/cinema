@@ -5,3 +5,7 @@ export const getDataMovie = async (type, page) => {
     const data = await axiosInstance.get(`/movie/${type}?api_key=${API_KEY}&language=en-US&page=${page}`);
     return data;
 };
+export const searchDataMovie = async (query) => {
+    const data = await axiosInstance.get(`/search/movie?api_key=${API_KEY}&language=en-US&query=${query}`);
+    return data;
+};

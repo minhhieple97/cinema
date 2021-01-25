@@ -46,7 +46,8 @@ const movieReducer = (state = initialState, action) => {
         case SEARCH_QUERY:
             return {
                 ...state,
-                searchQuery: action.payload
+                searchResult: action.payload.results,
+                searchQuery: action.payload.query
             };
         case MOVIE_DETAILS:
             return {

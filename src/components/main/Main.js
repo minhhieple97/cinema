@@ -6,9 +6,9 @@ import {
 } from '../../redux/actions/movies';
 import MainContent from '../content/main-content/MainContent';
 import Spinner from '../spinner/Spinner';
+import SearchResult from '../content/search-result/SearchResult';
 const Main = () => {
-  const { loading, page, totalPages, movieType } = useSelector((state) => state.movies);
-  // const [currentPage, setCurrentPage] = useState(page);
+  const { loading, page, totalPages, movieType, searchQuery, searchResult } = useSelector((state) => state.movies);
   const mainRef = useRef();
   const bottomLineRef = useRef();
   const dispatch = useDispatch();
@@ -29,8 +29,10 @@ const Main = () => {
   return (
     <>
       <div className="main" ref={mainRef} onScroll={handleScroll}>
-        {loading ? <Spinner></Spinner> : <MainContent></MainContent>}
-        <div ref={bottomLineRef}></div>
+        {loading ? (<Spinner></Spinner>) : (<>
+          {(searchQuery && searchResult.length > 0) ? <SearchResult></SearchResult> : <MainContent></MainContent>}
+          <div ref={bottomLineRef}></div>
+        </>)}
       </div>
     </>
   );

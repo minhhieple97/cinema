@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import logo from '../../assets/cinema-logo.svg';
-import { getMovies, setMovieType } from '../../redux/actions/movies';
+import { getMovies, searchMovieQuery, setLoading, setMovieType } from '../../redux/actions';
 import { HEADER_LIST } from '../../util/constants';
 import './Header.scss';
 const Header = () => {
   const [navClass, setNavClass] = useState(false);
   const [menuClass, setMenuClass] = useState(false);
   const { movieType } = useSelector((state) => ({ ...state.movies }));
+  const dispatch = useDispatch();
   const toggleMenu = () => {
     setNavClass(!navClass);
     setMenuClass(!menuClass);
@@ -17,7 +18,13 @@ const Header = () => {
       document.body.classList.remove('header-nav-open');
     }
   };
-  const dispatch = useDispatch();
+  const handleSearchChange = (e) => {
+    dispatch(setLoading(true))
+    setTimeout(() => {
+      dispatch(searchMovieQuery(e.target.value))
+    }, 2000);
+  }
+
   useEffect(() => {
     dispatch(getMovies(movieType));
     // eslint-disable-next-line
@@ -64,6 +71,8 @@ const Header = () => {
               className="search-input"
               type="text"
               placeholder="Search for a movie"
+              onChange={handleSearchChange}
+            // value={searchQuery}
             />
           </ul>
         </div>
@@ -71,5 +80,4 @@ const Header = () => {
     </>
   );
 };
-
 export default Header;

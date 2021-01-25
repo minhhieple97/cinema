@@ -2,5 +2,7 @@ export {
     getMovies,
     loadMoreMovies,
     setResponsePageNumber,
-    setMovieType
+    setMovieType,
+    searchMovieQuery,
+    setLoading
 } from "./movies";
