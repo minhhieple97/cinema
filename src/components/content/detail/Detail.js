@@ -3,19 +3,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { movieDetails } from '../../../redux/actions/movies';
 import { IMAGE_URL } from '../../../services/movie';
+import Spinner from '../../spinner/Spinner';
 import Rating from '../rating/Rating';
+import Crew from './crew/Crew';
 import './Detail.scss';
+import Media from './media/Media';
 import Overview from './overview/Overview';
+import Review from './review/Review';
 import Tabs from './tabs/Tabs';
 const Detail = () => {
   const dispatch = useDispatch();
-  const { movie } = useSelector((state) => state.movies);
+  const { movie, loading } = useSelector((state) => state.movies);
   const { id } = useParams();
   useEffect(() => {
     dispatch(movieDetails(id));
   }, [dispatch, id]);
   return (
-    <>
+    <> {loading ? <Spinner></Spinner> : <>
       <div className="movie-container">
         {movie[0] && (
           <>
@@ -56,9 +60,11 @@ const Detail = () => {
                     <div label="Overview">
                       <Overview />
                     </div>
-                    <div label="Crew">{/* <Crew /> */}</div>
-                    <div label="Media">{/* <Media /> */}</div>
-                    <div label="Reviews">{/* <Reviews /> */}</div>
+                    <div label="Crew">
+                      <Crew></Crew>
+                    </div>
+                    <div label="Media">{<Media />}</div>
+                    <div label="Reviews">{<Review />}</div>
                   </Tabs>
                 </div>
               </div>
@@ -66,8 +72,8 @@ const Detail = () => {
           </>
         )}
       </div>
+    </>}
     </>
   );
 };
-
 export default Detail;

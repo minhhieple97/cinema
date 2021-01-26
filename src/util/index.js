@@ -22,3 +22,37 @@ export const formatMovieTitle = (title) => {
     const titleStr = title.toLowerCase();
     return slugify(titleStr)
 }
+export const getDetailsItem = (details) => {
+    return [
+        {
+            id: 0,
+            name: 'Tagline',
+            value: `${details.tagline}`
+        },
+        {
+            id: 1,
+            name: 'Budget',
+            value: `${numberFormatter(details.budget, 1)}`
+        },
+        {
+            id: 2,
+            name: 'Revenue',
+            value: `${numberFormatter(details.revenue, 1)}`
+        },
+        {
+            id: 3,
+            name: 'Status',
+            value: `${details.status}`
+        },
+        {
+            id: 4,
+            name: 'Release Date',
+            value: `${details.release_date}`
+        },
+        {
+            id: 5,
+            name: 'Run Time',
+            value: `${details.runtime} min`
+        }
+    ];
+}

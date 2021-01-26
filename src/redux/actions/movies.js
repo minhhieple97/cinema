@@ -102,6 +102,7 @@ const getMoviesRequest = async (type, pageNumber) => {
 
 export const movieDetails = (id) => async (dispatch) => {
   try {
+    dispatchMethod(CHANGE_LOADING, true, dispatch);
     const details = getMovieDetailsUrl(id);
     const credits = getMovieCreditsUrl(id);
     const images = getMovieImagesUrl(id);
@@ -109,6 +110,7 @@ export const movieDetails = (id) => async (dispatch) => {
     const reviews = getMovieReviewUrl(id);
     const resp = await Promise.all([details, credits, images, videos, reviews]);
     dispatchMethod(MOVIE_DETAILS, resp, dispatch);
+    dispatchMethod(CHANGE_LOADING, false, dispatch);
   } catch (error) {
     const message = error.response
       ? error.response.data.message

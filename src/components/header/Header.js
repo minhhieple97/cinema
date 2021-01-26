@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import logo from '../../assets/cinema-logo.svg';
 import {
   clearMovieDetails,
@@ -15,10 +15,13 @@ const Header = () => {
   const [navClass, setNavClass] = useState(false);
   const [menuClass, setMenuClass] = useState(false);
   const { movieType } = useSelector((state) => ({ ...state.movies }));
+  const [disableSearch, setDisableSearch] = useState(false)
   const dispatch = useDispatch();
+  const location = useLocation();
   const history = useHistory();
   const redirectToHomePage = () => {
     dispatch(clearMovieDetails());
+    setDisableSearch(false)
     history.push('/');
   };
   const toggleMenu = () => {
@@ -39,12 +42,22 @@ const Header = () => {
       }, 2000);
     }
   };
-
   useEffect(() => {
     dispatch(getMovies(movieType));
-    // eslint-disable-next-line
-  }, [movieType]);
-
+    if (location.pathname !== '/' && location.key) {
+      setDisableSearch(true)
+    }
+  }, [movieType, dispatch, location, disableSearch]);
+  const handleChangeMovieType = (type) => {
+    setDisableSearch(false);
+    if (location.pathname !== '/') {
+      dispatch(clearMovieDetails());
+      history.push('/');
+      dispatch(setMovieType(type));
+    } else {
+      dispatch(setMovieType(type));
+    }
+  }
   return (
     <>
       <div className="header-nav-wrapper">
@@ -58,9 +71,8 @@ const Header = () => {
             <img src={logo} alt="" />
           </div>
           <div
-            className={`${
-              menuClass ? 'header-menu-toggle is-active' : 'header-menu-toggle'
-            }`}
+            className={`${menuClass ? 'header-menu-toggle is-active' : 'header-menu-toggle'
+              }`}
             id="header-mobile-menu"
             onClick={() => toggleMenu()}
           >
@@ -69,9 +81,8 @@ const Header = () => {
             <span className="bar"></span>
           </div>
           <ul
-            className={`${
-              navClass ? 'header-nav header-mobile-nav' : 'header-nav'
-            }`}
+            className={`${navClass ? 'header-nav header-mobile-nav' : 'header-nav'
+              }`}
           >
             {HEADER_LIST.map((el) => {
               return (
@@ -82,9 +93,7 @@ const Header = () => {
                       ? 'header-nav-item active-item'
                       : 'header-nav-item'
                   }
-                  onClick={() => {
-                    dispatch(setMovieType(el.type));
-                  }}
+                  onClick={handleChangeMovieType.bind(null, el.type)}
                 >
                   <span className="header-list-name">
                     <i className={el.iconClass}></i>
@@ -96,11 +105,11 @@ const Header = () => {
             })}
 
             <input
-              className="search-input"
+              className={`search-input ${disableSearch ? 'disabled' : ''}`}
               type="text"
               placeholder="Search for a movie"
               onChange={handleSearchChange}
-              // value={searchQuery}
+            // value={searchQuery}
             />
           </ul>
         </div>
