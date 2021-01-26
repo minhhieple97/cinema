@@ -8,7 +8,7 @@ executors:
     working_directory: ~/repo
   slack-executor:
     docker:
-      - image: "cimg/base:stable"
+      - image: 'cimg/base:stable'
     resource_class: small
   terraform-executor:
     docker:
@@ -183,9 +183,9 @@ jobs:
     steps:
       - run: echo "Slack notification"
       - slack/notify:
-          event: "always"
-          channel: "circleci"
-          template: ""
+          event: 'always'
+          channel: 'circleci'
+          template: ''
           custom: |
             {
               "blocks": [
@@ -253,15 +253,6 @@ workflows:
   build_and_deploy:
     jobs:
       - build
-      # - linting:
-      #     requires:
-      #       - build
-      #     filters:
-      #       branches:
-      #         only:
-      #           - develop
-      #           - staging
-      #           - main
       - prettier:
           requires:
             - build
