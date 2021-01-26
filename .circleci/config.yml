@@ -8,7 +8,7 @@ executors:
     working_directory: ~/repo
   slack-executor:
     docker:
-      - image: 'cimg/base:stable'
+      - image: "cimg/base:stable"
     resource_class: small
   terraform-executor:
     docker:
@@ -89,7 +89,15 @@ jobs:
           command: |
             npm run prettier:write
             npm run prettier:check
-
+  unit-test:
+    executor: app-executor
+    steps:
+      - checkout
+      - *show-current-branch-name
+      - *restore-cache
+      - run:
+          name: Run unit test
+          command: npm run test
   terraform-validate:
     executor: terraform-executor
     steps:
@@ -183,9 +191,9 @@ jobs:
     steps:
       - run: echo "Slack notification"
       - slack/notify:
-          event: 'always'
-          channel: 'circleci'
-          template: ''
+          event: "always"
+          channel: "circleci"
+          template: ""
           custom: |
             {
               "blocks": [
@@ -262,10 +270,19 @@ workflows:
                 - develop
                 - staging
                 - main
+      - unit-test:
+          requires:
+            - prettier
+          filters:
+            branches:
+              only:
+                - develop
+                - staging
+                - main
       - terraform-validate:
           requires:
             # - linting
-            - prettier
+            - unit-test
           filters:
             branches:
               only:
