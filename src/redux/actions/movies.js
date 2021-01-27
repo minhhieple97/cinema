@@ -31,9 +31,11 @@ export const getMovies = (type = 'now_playing', pageNumber = 1) => async (
     dispatchMethod(CHANGE_LOADING, false, dispatch);
   } catch (error) {
     const message = error.response
-      ? error.response.data.message
+      ? error.response.data.status_message
       : error.message;
-    dispatchMethod(SET_ERROR, message, dispatch);
+    const statusCode = error.response ? error.response.status : 400
+    dispatchMethod(SET_ERROR, { message, statusCode }, dispatch);
+    dispatchMethod(CHANGE_LOADING, false, dispatch);
   }
 };
 
@@ -48,9 +50,11 @@ export const loadMoreMovies = (type, pageNumber) => async (dispatch) => {
     );
   } catch (error) {
     const message = error.response
-      ? error.response.data.message
+      ? error.response.data.status_message
       : error.message;
-    dispatchMethod(SET_ERROR, message, dispatch);
+    const statusCode = error.response ? error.response.status : 400
+    dispatchMethod(SET_ERROR, { message, statusCode }, dispatch);
+    dispatchMethod(CHANGE_LOADING, false, dispatch);
   }
 };
 
@@ -74,11 +78,12 @@ export const searchMovieQuery = (query) => async (dispatch) => {
     }
     dispatchMethod(CHANGE_LOADING, false, dispatch);
   } catch (error) {
-    dispatchMethod(CHANGE_LOADING, false, dispatch);
     const message = error.response
-      ? error.response.data.message
+      ? error.response.data.status_message
       : error.message;
-    dispatchMethod(SET_ERROR, message, dispatch);
+    const statusCode = error.response ? error.response.status : 400
+    dispatchMethod(SET_ERROR, { message, statusCode }, dispatch);
+    dispatchMethod(CHANGE_LOADING, false, dispatch);
   }
 };
 
@@ -113,9 +118,11 @@ export const movieDetails = (id) => async (dispatch) => {
     dispatchMethod(CHANGE_LOADING, false, dispatch);
   } catch (error) {
     const message = error.response
-      ? error.response.data.message
+      ? error.response.data.status_message
       : error.message;
-    dispatchMethod(SET_ERROR, message, dispatch);
+    const statusCode = error.response ? error.response.status : 400
+    dispatchMethod(SET_ERROR, { message, statusCode }, dispatch);
+    dispatchMethod(CHANGE_LOADING, false, dispatch);
   }
 };
 

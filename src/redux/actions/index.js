@@ -12,3 +12,7 @@ export {
   appRoutes,
   pathURL
 } from './routes'
+
+export {
+  setError
+} from './errors.js'

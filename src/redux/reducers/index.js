@@ -3,7 +3,7 @@ import movieReducer from './movie';
 import routeReducer from './route';
 const { combineReducers } = require('redux');
 const rootReducers = combineReducers({
-    error: errorReducer,
+    errors: errorReducer,
     movies: movieReducer,
     routes: routeReducer
 });

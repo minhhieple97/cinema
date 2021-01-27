@@ -5,7 +5,9 @@ import logo from '../../assets/cinema-logo.svg';
 import {
   clearMovieDetails,
   getMovies,
+  pathURL,
   searchMovieQuery,
+  setError,
   setLoading,
   setMovieType
 } from '../../redux/actions';
@@ -16,6 +18,7 @@ const Header = () => {
   const [menuClass, setMenuClass] = useState(false);
   const { movieType } = useSelector((state) => ({ ...state.movies }));
   const { routesArray, path, url } = useSelector((state) => ({ ...state.routes }));
+  const { statusCode, message } = useSelector((state) => ({ ...state.errors }));
   const [disableSearch, setDisableSearch] = useState(false);
   const [hideHeader, setHideHeader] = useState(false);
   const detailRoute = useRouteMatch('/:id/:name/details');
@@ -26,12 +29,21 @@ const Header = () => {
   useEffect(() => {
     if (routesArray.length) {
       if (!path && !url) {
+        dispatch(pathURL('/', '/'))
         const error = new Error(`Page with pathname ${location.pathname} not found with status code 404.`);
+        dispatch(setError({ message: error.message, statusCode: 404 }))
         throw error
       }
     }
     // eslint-disable-next-line
   }, [path, url, routesArray]);
+
+  useEffect(() => {
+    if (message || statusCode) {
+      const error = new Error(`${message} With status code ${statusCode}.`);
+      throw error
+    }
+  }, [message, statusCode])
 
   const redirectToHomePage = () => {
     dispatch(clearMovieDetails());
@@ -57,15 +69,17 @@ const Header = () => {
     }
   };
   useEffect(() => {
-    dispatch(getMovies(movieType));
-    if (location.pathname !== '/' && location.key) {
-      setDisableSearch(true);
-    }
-    if (location.pathname === '/' || detailRoute) {
-      setHideHeader(true);
+    if (path && !message && !statusCode) {
+      dispatch(getMovies(movieType));
+      if (location.pathname !== '/' && location.key) {
+        setDisableSearch(true);
+      }
+      if (location.pathname === '/' || detailRoute) {
+        setHideHeader(true);
+      }
     }
     // eslint-disable-next-line
-  }, [movieType, location, disableSearch]);
+  }, [movieType, location, disableSearch, path, message, statusCode]);
   const handleChangeMovieType = (type) => {
     setDisableSearch(false);
     if (location.pathname !== '/') {

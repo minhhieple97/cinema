@@ -15,7 +15,6 @@ import Tabs from './tabs/Tabs';
 const Detail = ({ match }) => {
   const dispatch = useDispatch();
   const { movie, loading } = useSelector((state) => state.movies);
-  console.log({ match })
   const { id } = useParams();
   useEffect(() => {
     dispatch(pathURL(match.path, match.url));

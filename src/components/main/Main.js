@@ -10,6 +10,8 @@ import SearchResult from '../content/search-result/SearchResult';
 import { pathURL } from '../../redux/actions';
 const Main = ({ match }) => {
   const { loading, page, totalPages, movieType, searchQuery, searchResult } = useSelector((state) => state.movies);
+  const { message, statusCode } = useSelector(state => state.errors)
+  // const { path, url } = useSelector(state => state.routes)
   const mainRef = useRef();
   const bottomLineRef = useRef();
   const dispatch = useDispatch();
@@ -34,13 +36,16 @@ const Main = ({ match }) => {
     }
   };
   return (
-    <>
-      <div className="main" ref={mainRef} onScroll={handleScroll}>
-        {loading ? (<Spinner></Spinner>) : (<>
-          {(searchQuery && searchResult.length > 0) ? <SearchResult></SearchResult> : <MainContent></MainContent>}
-          <div ref={bottomLineRef}></div>
-        </>)}
-      </div>
+    <>{(!message && !statusCode) && <div className="main" ref={mainRef} onScroll={handleScroll}>
+      {
+        loading ?
+          (<Spinner></Spinner>) : <>
+            {(searchQuery && searchResult.length > 0) ? <SearchResult></SearchResult> : <MainContent></MainContent>}
+            <div ref={bottomLineRef}></div>
+          </>
+      }
+    </div>}
+
     </>
   );
 };
