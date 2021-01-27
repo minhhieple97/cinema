@@ -15,6 +15,7 @@ const Header = () => {
   const [navClass, setNavClass] = useState(false);
   const [menuClass, setMenuClass] = useState(false);
   const { movieType } = useSelector((state) => ({ ...state.movies }));
+  const { routesArray, path, url } = useSelector((state) => ({ ...state.routes }));
   const [disableSearch, setDisableSearch] = useState(false);
   const [hideHeader, setHideHeader] = useState(false);
   const detailRoute = useRouteMatch('/:id/:name/details');
@@ -23,8 +24,14 @@ const Header = () => {
   const history = useHistory();
 
   useEffect(() => {
-    throw new Error('Something went wrong.');
-  }, []);
+    if (routesArray.length) {
+      if (!path && !url) {
+        const error = new Error(`Page with pathname ${location.pathname} not found with status code 404.`);
+        throw error
+      }
+    }
+    // eslint-disable-next-line
+  }, [path, url, routesArray]);
 
   const redirectToHomePage = () => {
     dispatch(clearMovieDetails());
@@ -84,11 +91,10 @@ const Header = () => {
                 <img src={logo} alt="" />
               </div>
               <div
-                className={`${
-                  menuClass
-                    ? 'header-menu-toggle is-active'
-                    : 'header-menu-toggle'
-                }`}
+                className={`${menuClass
+                  ? 'header-menu-toggle is-active'
+                  : 'header-menu-toggle'
+                  }`}
                 id="header-mobile-menu"
                 onClick={() => toggleMenu()}
               >
@@ -97,9 +103,8 @@ const Header = () => {
                 <span className="bar"></span>
               </div>
               <ul
-                className={`${
-                  navClass ? 'header-nav header-mobile-nav' : 'header-nav'
-                }`}
+                className={`${navClass ? 'header-nav header-mobile-nav' : 'header-nav'
+                  }`}
               >
                 {HEADER_LIST.map((el) => {
                   return (
@@ -125,7 +130,7 @@ const Header = () => {
                   type="text"
                   placeholder="Search for a movie"
                   onChange={handleSearchChange}
-                  // value={searchQuery}
+                // value={searchQuery}
                 />
               </ul>
             </div>

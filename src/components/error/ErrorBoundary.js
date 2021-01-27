@@ -4,7 +4,7 @@ class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
     this.state = { error: null, errorInfo: null };
-    this.clearState = this.clearState(this);
+    this.clearState = this.clearState.bind(this);
   }
   componentDidCatch(error, errorInfo) {
     this.setState({ error, errorInfo });

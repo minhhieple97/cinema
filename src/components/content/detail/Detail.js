@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { pathURL } from '../../../redux/actions';
 import { movieDetails } from '../../../redux/actions/movies';
 import { IMAGE_URL } from '../../../services/movie';
 import Spinner from '../../spinner/Spinner';
@@ -11,12 +12,15 @@ import Media from './media/Media';
 import Overview from './overview/Overview';
 import Review from './review/Review';
 import Tabs from './tabs/Tabs';
-const Detail = () => {
+const Detail = ({ match }) => {
   const dispatch = useDispatch();
   const { movie, loading } = useSelector((state) => state.movies);
+  console.log({ match })
   const { id } = useParams();
   useEffect(() => {
+    dispatch(pathURL(match.path, match.url));
     dispatch(movieDetails(id));
+    // eslint-disable-next-line
   }, [dispatch, id]);
   return (
     <> {loading ? <Spinner></Spinner> : <>

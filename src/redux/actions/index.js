@@ -8,3 +8,7 @@ export {
   movieDetails,
   clearMovieDetails
 } from './movies';
+export {
+  appRoutes,
+  pathURL
+} from './routes'

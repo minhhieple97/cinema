@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import './ErrorPage.scss';
-const ErrorPage = ({ clearState }) => {
+const ErrorPage = (props) => {
+  const { clearState } = props;
   const history = useHistory();
   const navigateToHomePage = () => {
     clearState();

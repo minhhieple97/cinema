@@ -9,5 +9,4 @@ export const MOVIE_DETAILS = 'MOVIE_DETAILS';
 export const CLEAR_MOVIE_DETAILS = 'CLEAR_MOVIE_DETAILS';
 export const APP_ROUTES = 'APP_ROUTES';
 export const PATH_URL = 'PATH_URL';
-
 export const CHANGE_LOADING = 'CHANGE_LOADING';
