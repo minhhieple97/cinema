@@ -1,0 +1,28 @@
+version: '3'
+services:
+  cinema_image:
+    stdin_open: true
+    container_name: cinema_app
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - '3000:3000'
+    environment:
+      - REACT_APP_THEMOVIE_API_KEY=6a63c68ae062a80823af86e3d3a6a837
+      - REACT_APP_THEMOVIE_API=https://api.themoviedb.org/3
+    volumes:
+      - /usr/src/app/node_modules
+      - ./:/usr/src/app
+    # Ngoại trừ thư mục node_modules mọi thứ thay đổi trên máy local sẽ được mounting vs thư mục trong container trong thời gian chạy
+  # nginx:
+  #   container_name: cinema_load_balanced
+  #   depends_on:
+  #     - client
+  #   build:
+  #     dockerfile: Dockerfile.dev
+  #     context: ./nginx
+  #   image: nginx
+  #   restart: always
+  #   ports:
+  #     - 80:80
