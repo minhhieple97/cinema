@@ -3,7 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
 import store from './redux/store';
+import * as Sentry from "@sentry/react";
+// import { Integrations } from "@sentry/tracing";
 import { Provider } from 'react-redux';
+Sentry.init({
+  dsn: process.env.REACT_APP_SENTRY_DSN,
+  beforeBreadcrumb(breadcrumb, hint) {
+    return breadcrumb.category === 'ui.click' ? null : breadcrumb;
+  }
+});
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { setError } from '../../redux/actions';
 import './ErrorPage.scss';
 const ErrorPage = (props) => {
@@ -16,9 +16,9 @@ const ErrorPage = (props) => {
     <div className="error-page">
       <h1 className="error-header">Oops!</h1>
       <p className="error-msg">Something went wrong.</p>
-      <Link className="error-link" onClick={() => navigateToHomePage()}>
+      <span className="error-link" onClick={() => navigateToHomePage()}>
         <i className="icon-home"></i> Go back to home page.
-      </Link>
+      </span>
     </div>
   );
 };
